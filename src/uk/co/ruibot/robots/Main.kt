@@ -36,14 +36,15 @@ interface Command {
     fun execute() // TODO should return something... new position (x,y,dir)? but if new position then it's not "generic"
 }
 
-class Robot(
-    val x: Int,
-    val y: Int,
-    val direction: Direction
-) {
+class Robot(val position: Position) {
 
     fun run(command: Command) {
         // TODO run on this robot
     }
-
 }
+
+data class Position(
+    val x: Int,
+    val y: Int,
+    val direction: Direction
+)

@@ -23,14 +23,14 @@ fun main() {
         ), State.ALIVE
     )
     val commands1 = mutableListOf(
-        TurnRight(),
-        MoveForward(),
-        TurnRight(),
-        MoveForward(),
-        TurnRight(),
-        MoveForward(),
-        TurnRight(),
-        MoveForward()
+        TurnRight,
+        MoveForward,
+        TurnRight,
+        MoveForward,
+        TurnRight,
+        MoveForward,
+        TurnRight,
+        MoveForward
     )
 
     val robot2 = Robot(
@@ -41,19 +41,19 @@ fun main() {
         ), State.ALIVE
     )
     val commands2 = mutableListOf(
-        MoveForward(),
-        TurnRight(),
-        TurnRight(),
-        MoveForward(),
-        TurnLeft(),
-        TurnLeft(),
-        MoveForward(),
-        MoveForward(),
-        TurnRight(),
-        TurnRight(),
-        MoveForward(),
-        TurnLeft(),
-        TurnLeft()
+        MoveForward,
+        TurnRight,
+        TurnRight,
+        MoveForward,
+        TurnLeft,
+        TurnLeft,
+        MoveForward,
+        MoveForward,
+        TurnRight,
+        TurnRight,
+        MoveForward,
+        TurnLeft,
+        TurnLeft
     )
 
     val robot3 = Robot(
@@ -64,16 +64,16 @@ fun main() {
         ), State.ALIVE
     )
     val commands3 = mutableListOf(
-        TurnLeft(),
-        TurnLeft(),
-        MoveForward(),
-        MoveForward(),
-        MoveForward(),
-        TurnLeft(),
-        MoveForward(),
-        TurnLeft(),
-        MoveForward(),
-        TurnLeft()
+        TurnLeft,
+        TurnLeft,
+        MoveForward,
+        MoveForward,
+        MoveForward,
+        TurnLeft,
+        MoveForward,
+        TurnLeft,
+        MoveForward,
+        TurnLeft
     )
 
 

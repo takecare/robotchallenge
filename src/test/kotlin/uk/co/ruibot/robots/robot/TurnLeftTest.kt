@@ -13,7 +13,7 @@ class TurnLeftTest {
         ) // TODO extract these to Fixtures file
         val world = World(3, 3)
 
-        val result = TurnLeft().execute(robot, world)
+        val result = TurnLeft.execute(robot, world)
         val position = result.contentOrNull as Position
 
         Truth.assertThat(position.direction).isEqualTo(Direction.WEST)
@@ -26,7 +26,7 @@ class TurnLeftTest {
         ) // TODO extract these to Fixtures file
         val world = World(3, 3)
 
-        val result = TurnLeft().execute(robot, world)
+        val result = TurnLeft.execute(robot, world)
         val position = result.contentOrNull as Position
 
         Truth.assertThat(position.direction).isEqualTo(Direction.NORTH)
@@ -39,7 +39,7 @@ class TurnLeftTest {
         ) // TODO extract these to Fixtures file
         val world = World(3, 3)
 
-        val result = TurnLeft().execute(robot, world)
+        val result = TurnLeft.execute(robot, world)
         val position = result.contentOrNull as Position
 
         Truth.assertThat(position.direction).isEqualTo(Direction.EAST)
@@ -52,7 +52,7 @@ class TurnLeftTest {
         ) // TODO extract these to Fixtures file
         val world = World(3, 3)
 
-        val result = TurnLeft().execute(robot, world)
+        val result = TurnLeft.execute(robot, world)
         val position = result.contentOrNull as Position
 
         Truth.assertThat(position.direction).isEqualTo(Direction.SOUTH)

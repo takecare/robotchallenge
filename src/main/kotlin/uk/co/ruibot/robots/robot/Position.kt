@@ -1,12 +1,5 @@
 package uk.co.ruibot.robots.robot
 
-//
-//data class Position(
-//    val x: Int,
-//    val y: Int,
-//    val direction: Direction
-//)
-
 data class Position(
     val coordinates: Coordinates = Coordinates(0, 0),
     val direction: Direction = Direction.NORTH

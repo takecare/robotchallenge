@@ -104,9 +104,9 @@ class ParserTest {
     fun `correctly parses path - RFL`() {
         val result = parsePath("RLF")
         assertThat(result).containsExactlyElementsIn(listOf(
-            TurnRight(),
-            TurnLeft(),
-            MoveForward()
+            TurnRight,
+            TurnLeft,
+            MoveForward
         )).inOrder()
     }
 
@@ -116,12 +116,12 @@ class ParserTest {
         assertThat(result)
             .containsExactlyElementsIn(
                 listOf(
-                    TurnRight(),
-                    TurnLeft(),
-                    MoveForward(),
-                    TurnRight(),
-                    TurnLeft(),
-                    MoveForward()
+                    TurnRight,
+                    TurnLeft,
+                    MoveForward,
+                    TurnRight,
+                    TurnLeft,
+                    MoveForward
                 )
             )
             .inOrder()

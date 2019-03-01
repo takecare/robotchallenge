@@ -11,14 +11,14 @@ class WorldTest {
         val robot = Robot(Position(1, 1, Direction.EAST), State.ALIVE) // TODO extract these to Fixtures file
         val world = World(5, 3)
         val path = listOf(
-            TurnRight(),
-            MoveForward(),
-            TurnRight(),
-            MoveForward(),
-            TurnRight(),
-            MoveForward(),
-            TurnRight(),
-            MoveForward()
+            TurnRight,
+            MoveForward,
+            TurnRight,
+            MoveForward,
+            TurnRight,
+            MoveForward,
+            TurnRight,
+            MoveForward
         )
 
         val result = world.run(robot, path)
@@ -33,19 +33,19 @@ class WorldTest {
         val robot = Robot(Position(3, 2, Direction.NORTH), State.ALIVE) // TODO extract these to Fixtures file
         val world = World(5, 3)
         val path = listOf(
-            MoveForward(),
-            TurnRight(),
-            TurnRight(),
-            MoveForward(),
-            TurnLeft(),
-            TurnLeft(),
-            MoveForward(),
-            MoveForward(),
-            TurnRight(),
-            TurnRight(),
-            MoveForward(),
-            TurnLeft(),
-            TurnLeft()
+            MoveForward,
+            TurnRight,
+            TurnRight,
+            MoveForward,
+            TurnLeft,
+            TurnLeft,
+            MoveForward,
+            MoveForward,
+            TurnRight,
+            TurnRight,
+            MoveForward,
+            TurnLeft,
+            TurnLeft
         )
 
         val result = world.run(robot, path)
@@ -64,31 +64,31 @@ class WorldTest {
         val world = World(5, 3)
 
         val path1 = listOf(
-            MoveForward(),
-            TurnRight(),
-            TurnRight(),
-            MoveForward(),
-            TurnLeft(),
-            TurnLeft(),
-            MoveForward(),
-            MoveForward(),
-            TurnRight(),
-            TurnRight(),
-            MoveForward(),
-            TurnLeft(),
-            TurnLeft()
+            MoveForward,
+            TurnRight,
+            TurnRight,
+            MoveForward,
+            TurnLeft,
+            TurnLeft,
+            MoveForward,
+            MoveForward,
+            TurnRight,
+            TurnRight,
+            MoveForward,
+            TurnLeft,
+            TurnLeft
         )
         val path2 = listOf(
-            TurnLeft(),
-            TurnLeft(),
-            MoveForward(),
-            MoveForward(),
-            MoveForward(),
-            TurnLeft(),
-            MoveForward(),
-            TurnLeft(),
-            MoveForward(),
-            TurnLeft()
+            TurnLeft,
+            TurnLeft,
+            MoveForward,
+            MoveForward,
+            MoveForward,
+            TurnLeft,
+            MoveForward,
+            TurnLeft,
+            MoveForward,
+            TurnLeft
         )
 
         world.run(robot1, path1)

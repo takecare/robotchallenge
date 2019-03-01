@@ -19,10 +19,10 @@ fun parsePosition(line: String): Position {
 fun parsePath(line: String) = line.chunked(1).map { it.toCommand() }
 
 private fun String.toCommand() = when (this) {
-    "F" -> MoveForward()
-    "R" -> TurnRight()
-    "L" -> TurnLeft()
-    "P" -> TakePhoto()
+    "F" -> MoveForward
+    "R" -> TurnRight
+    "L" -> TurnLeft
+    "P" -> TakePhoto
     else -> throw IllegalArgumentException("Unexpected command '$this'")
 }
 

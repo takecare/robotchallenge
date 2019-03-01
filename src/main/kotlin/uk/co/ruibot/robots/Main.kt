@@ -43,9 +43,11 @@ enum class Direction {
 }
 
 interface Command {
-    fun execute(robot: Robot, world: World) // TODO should return something... new position (x,y,dir)? but if new position then it's not "generic"
+    fun execute(
+        robot: Robot,
+        world: World
+    ) // TODO should return something... new position (x,y,dir)? but if new position then it's not "generic"
 }
-
 
 
 class MoveForward : Command {

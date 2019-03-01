@@ -11,5 +11,13 @@
       <entry name="!?*.kt" />
       <entry name="!?*.clj" />
     </wildcardResourcePatterns>
+    <bytecodeTargetLevel>
+      <module name="robotchallenge_main" target="1.8" />
+      <module name="robotchallenge_test" target="1.8" />
+      <module name="robots_main" target="1.8" />
+      <module name="robots_test" target="1.8" />
+      <module name="uk.co.ruibot.robots.main" target="1.8" />
+      <module name="uk.co.ruibot.robots.test" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

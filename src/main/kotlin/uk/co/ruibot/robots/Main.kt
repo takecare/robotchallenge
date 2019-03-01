@@ -88,7 +88,8 @@ interface Command {
     fun execute(
         robot: Robot,
         world: World
-    ) // TODO should return something... new position (x,y,dir)? but if new position then it's not "generic" -- this goes with immutability!
+    )
+    // TODO should return something... new position (x,y,dir)? but if new position then it's not "generic" -- this goes with immutability!
 }
 
 class MoveForward : Command {
@@ -190,8 +191,6 @@ class TurnRight : Command {
     override fun hashCode(): Int {
         return javaClass.hashCode()
     }
-
-
 }
 
 class TakePhoto : Command {
@@ -204,15 +203,4 @@ data class Robot(val position: Position, var state: State) {
     fun run(command: Command, world: World) {
         command.execute(this, world)
     }
-}
-
-data class Position( // FIXME i don't like this being mutable... maybe go fo immutability?
-    var x: Int = 0,
-    var y: Int = 0,
-    var direction: Direction = Direction.NORTH
-)
-
-enum class State {
-    LOST,
-    ALIVE
 }

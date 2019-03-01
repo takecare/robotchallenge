@@ -2,7 +2,6 @@ package uk.co.ruibot.robots.parsing
 
 import uk.co.ruibot.robots.*
 
-
 fun parseWorldSize(line: String): Pair<Int, Int> { // TODO should be WorldSize @RUI
     val values = line.split(" ")
     // TODO throw if values.size != 2

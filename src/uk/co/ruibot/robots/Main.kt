@@ -3,13 +3,20 @@ package uk.co.ruibot.robots
 fun main() {
     // TODO 1. read world size
 
-    do {
+    /*do {
         val line = readLine()
         println("> $line")
-    } while (line != null)
+    } while (line != null)*/
 
     // TODO 2. read (on loop) robots [define breaking condition]
     // TODO 3. evaluate all robots
+
+
+    val robot = Robot(Position())
+    val commands = mutableListOf(MoveForward())
+    val world = World(5, 5)
+
+    world.run(robot, commands)
 }
 
 // TODO define domain & changes to it
@@ -18,11 +25,13 @@ class World(
     private val width: Int,
     private val height: Int
 ) {
-    private val robots: Pair<Robot, List<Command>> =
-        Pair(Robot(0, 0, Direction.NORTH), mutableListOf()) // FIXME will have to be <Robot?, List> ??
+
     private val scents: List<Robot> = mutableListOf()
 
     // TODO move robots?
+    fun run(robot: Robot, commands: List<Command>) {
+        commands.forEach { robot.run(it) }
+    }
 }
 
 enum class Direction {
@@ -33,18 +42,24 @@ enum class Direction {
 }
 
 interface Command {
-    fun execute() // TODO should return something... new position (x,y,dir)? but if new position then it's not "generic"
+    fun execute(robot: Robot) // TODO should return something... new position (x,y,dir)? but if new position then it's not "generic"
+}
+
+class MoveForward : Command {
+    override fun execute(robot: Robot) {
+        robot.position.x += 1 // TODO manage movement accordingly
+    }
 }
 
 class Robot(val position: Position) {
 
     fun run(command: Command) {
-        // TODO run on this robot
+        command.execute(this)
     }
 }
 
 data class Position(
-    val x: Int,
-    val y: Int,
-    val direction: Direction
+    var x: Int = 0,
+    val y: Int = 0,
+    val direction: Direction = Direction.NORTH
 )

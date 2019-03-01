@@ -26,19 +26,22 @@ class ParserTest {
         assertThat(result.second).isEqualTo(50)
     }
 
+    @Test(expected = InvalidSize::class)
+    fun `fails parsing size if there is a missing value`() {
+        parseWorldSize("1988")
+    }
+
     @Test
     @Ignore
-    fun `fails if there are negative values`() {
-        val result = parseWorldSize("-50 50")
-
+    fun `fails parsing size if there are negative values`() {
+        parseWorldSize("-50 50")
         // TODO implement negative values constraint
     }
 
     @Test
     @Ignore
     fun `fails if there are values greater than 50`() {
-        val result = parseWorldSize("19 88")
-
+        parseWorldSize("19 88")
         // TODO implement 50,50 limit
     }
 
@@ -51,19 +54,22 @@ class ParserTest {
         assertThat(result.direction).isEqualTo(Direction.NORTH)
     }
 
+    @Test(expected = InvalidSize::class)
+    fun `fails parsing position if there is a missing value`() {
+        parsePosition("88 N")
+    }
+
     @Test
     @Ignore
     fun `fails if there  is an x position coordinate greater than 50`() {
-        val result = parsePosition("88 8 N")
-
+        parsePosition("88 8 N")
         // TODO implement 50,50 limit
     }
 
     @Test
     @Ignore
     fun `fails if there  is a y position coordinate greater than 50`() {
-        val result = parsePosition("8 88 N")
-
+        parsePosition("8 88 N")
         // TODO implement 50,50 limit
     }
 
@@ -88,8 +94,8 @@ class ParserTest {
         assertThat(result.direction).isEqualTo(Direction.SOUTH)
     }
 
-    @Test(expected = IllegalArgumentException::class)
-    fun `throws IllegalArgumentException if invalid direction found`() {
+    @Test(expected = InvalidDirection::class)
+    fun `fails if invalid direction found`() {
         parsePosition("19 74 X")
     }
 
@@ -103,11 +109,13 @@ class ParserTest {
     @Test
     fun `correctly parses path - RFL`() {
         val result = parsePath("RLF")
-        assertThat(result).containsExactlyElementsIn(listOf(
-            TurnRight,
-            TurnLeft,
-            MoveForward
-        )).inOrder()
+        assertThat(result).containsExactlyElementsIn(
+            listOf(
+                TurnRight,
+                TurnLeft,
+                MoveForward
+            )
+        ).inOrder()
     }
 
     @Test
@@ -127,8 +135,8 @@ class ParserTest {
             .inOrder()
     }
 
-    @Test(expected = IllegalArgumentException::class)
-    fun `throws IllegalArgumentException if invalid command found`() {
+    @Test(expected = InvalidCommand::class)
+    fun `fails if invalid command found`() {
         parsePath("RLXF")
     }
 }

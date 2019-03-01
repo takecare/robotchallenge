@@ -10,7 +10,7 @@ fun parseWorldSize(line: String): Pair<Int, Int> { // TODO should be WorldSize @
     return Pair(values[0].toInt(), values[1].toInt())
 }
 
-private class InvalidSize(message: String) : IllegalArgumentException(message)
+class InvalidSize(message: String) : IllegalArgumentException(message)
 
 fun parsePosition(line: String): Position {
     val values = line.split(" ")
@@ -30,7 +30,7 @@ private fun String.toCommand() = when (this) {
     else -> throw InvalidCommand("Unexpected command '$this'")
 }
 
-private class InvalidCommand(message: String) : IllegalArgumentException(message)
+class InvalidCommand(message: String) : IllegalArgumentException(message)
 
 private fun String.toDirection() = when (this) {
     "N" -> Direction.NORTH

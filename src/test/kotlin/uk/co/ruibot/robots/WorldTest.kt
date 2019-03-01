@@ -1,7 +1,6 @@
 package uk.co.ruibot.robots
 
 import com.google.common.truth.Truth.assertThat
-import org.junit.Ignore
 import org.junit.Test
 import uk.co.ruibot.robots.robot.*
 
@@ -9,13 +8,7 @@ class WorldTest {
 
     @Test
     fun `robot goes back to starting position - RFRFRFRF`() {
-        val robot = Robot(
-            Position(
-                1,
-                1,
-                Direction.EAST
-            ), State.ALIVE
-        ) // TODO extract these to Fixtures file
+        val robot = Robot(Position(1, 1, Direction.EAST), State.ALIVE) // TODO extract these to Fixtures file
         val world = World(5, 3)
         val path = listOf(
             TurnRight(),
@@ -28,26 +21,16 @@ class WorldTest {
             MoveForward()
         )
 
-        world.run(robot, path)
+        val result = world.run(robot, path)
 
-        assertThat(robot.position).isEqualTo(
-            Position(
-                1,
-                1,
-                Direction.EAST
-            )
+        assertThat(result).isEqualTo(
+            Robot(Position(1, 1, Direction.EAST), State.ALIVE)
         )
     }
 
     @Test
     fun `robot gets lost - FRRFLLFFRRFLL`() {
-        val robot = Robot(
-            Position(
-                3,
-                2,
-                Direction.NORTH
-            ), State.ALIVE
-        ) // TODO extract these to Fixtures file
+        val robot = Robot(Position(3, 2, Direction.NORTH), State.ALIVE) // TODO extract these to Fixtures file
         val world = World(5, 3)
         val path = listOf(
             MoveForward(),
@@ -65,31 +48,37 @@ class WorldTest {
             TurnLeft()
         )
 
-        world.run(robot, path)
+        val result = world.run(robot, path)
 
-        assertThat(robot).isEqualTo(
+        assertThat(result).isEqualTo(
             Robot(
-                Position(
-                    3,
-                    3,
-                    Direction.NORTH
-                ), State.LOST
+                Position(3, 3, Direction.NORTH), State.LOST
             )
         )
     }
 
     @Test
-    @Ignore // FIXME @RUI
-    fun `robot detects scent - LLFFFLFLFL`() {
-        val robot = Robot(
-            Position(
-                0,
-                3,
-                Direction.WEST
-            ), State.ALIVE
-        ) // TODO extract these to Fixtures file
+    fun `robot detects scent - FRRFLLFFRRFLL & LLFFFLFLFL`() {
+        val robot1 = Robot(Position(3, 2, Direction.WEST), State.ALIVE) // TODO extract these to Fixtures file
+        val robot2 = Robot(Position(0, 3, Direction.WEST), State.ALIVE) // TODO extract these to Fixtures file
         val world = World(5, 3)
-        val path = listOf(
+
+        val path1 = listOf(
+            MoveForward(),
+            TurnRight(),
+            TurnRight(),
+            MoveForward(),
+            TurnLeft(),
+            TurnLeft(),
+            MoveForward(),
+            MoveForward(),
+            TurnRight(),
+            TurnRight(),
+            MoveForward(),
+            TurnLeft(),
+            TurnLeft()
+        )
+        val path2 = listOf(
             TurnLeft(),
             TurnLeft(),
             MoveForward(),
@@ -102,15 +91,12 @@ class WorldTest {
             TurnLeft()
         )
 
-        world.run(robot, path)
+        world.run(robot1, path1)
+        val result = world.run(robot2, path2)
 
-        assertThat(robot).isEqualTo(
+        assertThat(result).isEqualTo(
             Robot(
-                Position(
-                    3,
-                    3,
-                    Direction.EAST
-                ), State.LOST
+                Position(3, 3, Direction.NORTH), State.LOST
             )
         )
     }

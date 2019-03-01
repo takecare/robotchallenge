@@ -78,9 +78,9 @@ fun main() {
 
 
     val world = World(5, 3)
-    world.run(robot1, commands1)
-    world.run(robot2, commands2)
-    world.run(robot3, commands3)
+    println(world.run(robot1, commands1))
+    println(world.run(robot2, commands2))
+    println(world.run(robot3, commands3))
 }
 
 class World(
@@ -88,26 +88,10 @@ class World(
     val height: Int
 ) {
 
-//    private var scents: List<Coordinates> = listOf()
-private val scents: MutableSet<Position> = mutableSetOf()
+    private val scents: MutableSet<Position> = mutableSetOf()
 
-    fun run(startingRobot: Robot, commands: List<Command<*>>) {
-
-//        val f =commands.fold(startingRobot) { r, c ->
-//            val result = r.execute(c, this)
-//            val x= when (result.contentOrNull) {
-//                is Position -> moveOrDisappear(result.contentOrNull as Position, r)
-//                else -> r
-//            }
-//            x
-//        }
-//
-//        println(f)
-
-        val final = commands
-            .fold(startingRobot) { robot, command -> execute(command, robot) }
-        println(final)
-    }
+    fun run(startingRobot: Robot, commands: List<Command<*>>): Robot = commands
+        .fold(startingRobot) { robot, command -> execute(command, robot) }
 
     private fun execute(command: Command<*>, robot: Robot): Robot {
         val result = command.execute(robot, this)

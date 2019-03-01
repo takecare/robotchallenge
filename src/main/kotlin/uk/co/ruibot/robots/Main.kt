@@ -80,7 +80,7 @@ fun main() {
     val world = World(5, 3)
     world.run(robot1, commands1)
     world.run(robot2, commands2)
-//    world.run(robot3, commands3)
+    world.run(robot3, commands3)
 }
 
 class World(
@@ -92,6 +92,18 @@ class World(
 private val scents: MutableSet<Position> = mutableSetOf()
 
     fun run(startingRobot: Robot, commands: List<Command<*>>) {
+
+//        val f =commands.fold(startingRobot) { r, c ->
+//            val result = r.execute(c, this)
+//            val x= when (result.contentOrNull) {
+//                is Position -> moveOrDisappear(result.contentOrNull as Position, r)
+//                else -> r
+//            }
+//            x
+//        }
+//
+//        println(f)
+
         val final = commands
             .fold(startingRobot) { robot, command -> execute(command, robot) }
         println(final)

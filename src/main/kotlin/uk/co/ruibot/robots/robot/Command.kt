@@ -22,8 +22,7 @@ class MoveForward : Move() { // FIXME smell: hashCode() & equals() implemented f
                     if (robot.position.y + 1 > world.height) {
                         Error(content = robot.position)
                     } else {
-                        val coordinates = robot.position.coordinates.copy(y = robot.position.y + 1)
-                        val position = robot.position.copy(coordinates = coordinates)
+                        val position = Position(robot.position.x, robot.position.y + 1, robot.position.direction)
                         Payload(position)
                     }
                 }
@@ -31,8 +30,7 @@ class MoveForward : Move() { // FIXME smell: hashCode() & equals() implemented f
                     if (robot.position.x + 1 > world.width) {
                         Error(content = robot.position)
                     } else {
-                        val coordinates = robot.position.coordinates.copy(x = robot.position.x + 1)
-                        val position = robot.position.copy(coordinates = coordinates)
+                        val position = Position(robot.position.x + 1, robot.position.y, robot.position.direction)
                         Payload(position)
                     }
                 }
@@ -40,8 +38,7 @@ class MoveForward : Move() { // FIXME smell: hashCode() & equals() implemented f
                     if (robot.position.y - 1 < 0) {
                         Error(content = robot.position)
                     } else {
-                        val coordinates = robot.position.coordinates.copy(x = robot.position.y - 1)
-                        val position = robot.position.copy(coordinates = coordinates)
+                        val position = Position(robot.position.x, robot.position.y - 1, robot.position.direction)
                         Payload(position)
                     }
                 }
@@ -49,10 +46,8 @@ class MoveForward : Move() { // FIXME smell: hashCode() & equals() implemented f
                     if (robot.position.x - 1 < 0) {
                         Error(content = robot.position)
                     } else {
-                        val coordinates = robot.position.coordinates.copy(x = robot.position.x - 1)
-                        val position = robot.position.copy(coordinates = coordinates)
+                        val position = Position(robot.position.x - 1, robot.position.y, robot.position.direction)
                         Payload(position)
-//                        Payload(Position(y = robot.position.x - 1))
                     }
                 }
             }

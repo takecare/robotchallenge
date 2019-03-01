@@ -47,7 +47,13 @@ interface Command {
 
 class MoveForward : Command {
     override fun execute(robot: Robot) {
-        robot.position.x += 1 // TODO manage movement accordingly
+        robot.position.x += 1 // TODO manage movement accordingly (i.e. take direction and bounds in account)
+    }
+}
+
+class TakePhoto : Command {
+    override fun execute(robot: Robot) {
+        println("Took a photo at ${robot.position}")
     }
 }
 

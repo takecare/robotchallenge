@@ -12,7 +12,7 @@ fun main() {
     // TODO 3. evaluate all robots
 
 
-    val robot = Robot(Position())
+    val robot = Robot(Position(), State.ALIVE)
     val commands = mutableListOf(MoveForward(), MoveForward(), MoveForward())
     val world = World(5, 5)
 
@@ -57,46 +57,55 @@ class MoveForward : Command {
         when (robot.position.direction) {
             Direction.NORTH -> {
                 if (robot.position.y + 1 > world.height) {
-                    // TODO kill robot
+                    robot.state = State.LOST
                 } else {
                     robot.position.y += 1
                 }
             }
             Direction.EAST -> {
                 if (robot.position.x + 1 > world.width) {
-                    // TODO kill robot
+                    robot.state = State.LOST
                 } else {
                     robot.position.x += 1
                 }
             }
             Direction.SOUTH -> {
                 if (robot.position.y - 1 < 0) {
-                    // TODO kill robot
+                    robot.state = State.LOST
                 } else {
                     robot.position.y -= 1
                 }
             }
             Direction.WEST -> {
                 if (robot.position.x - 1 < 0) {
-                    // TODO kill robot
+                    robot.state = State.LOST
                 } else {
                     robot.position.x -= 1
                 }
             }
         }
-
     }
 }
 
 class TurnLeft : Command {
     override fun execute(robot: Robot, world: World) {
-        // TODO: execute not implemented
+        when (robot.position.direction) {
+            Direction.NORTH -> robot.position.direction = Direction.WEST
+            Direction.EAST -> robot.position.direction = Direction.NORTH
+            Direction.SOUTH -> robot.position.direction = Direction.EAST
+            Direction.WEST -> robot.position.direction = Direction.SOUTH
+        }
     }
 }
 
 class TurnRight : Command {
     override fun execute(robot: Robot, world: World) {
-        // TODO: execute not implemented
+        when (robot.position.direction) {
+            Direction.NORTH -> robot.position.direction = Direction.EAST
+            Direction.EAST -> robot.position.direction = Direction.SOUTH
+            Direction.SOUTH -> robot.position.direction = Direction.WEST
+            Direction.WEST -> robot.position.direction = Direction.NORTH
+        }
     }
 
 }
@@ -107,8 +116,7 @@ class TakePhoto : Command {
     }
 }
 
-data class Robot(val position: Position) {
-
+data class Robot(val position: Position, var state: State) {
     fun run(command: Command, world: World) {
         command.execute(this, world)
     }
@@ -117,5 +125,10 @@ data class Robot(val position: Position) {
 data class Position(
     var x: Int = 0,
     var y: Int = 0,
-    val direction: Direction = Direction.NORTH
+    var direction: Direction = Direction.NORTH
 )
+
+enum class State {
+    LOST,
+    ALIVE
+}

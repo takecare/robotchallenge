@@ -1,4 +1,9 @@
 
+### Running
+
+In the root dir of the project run ` ./gradlew run -q --console=plain`. Input data as described/showcased below. Alternatively you can import this project in IntelliJ (or Android Studio).
+
+
 ### The Problem
 ```
 The surface of Mars can be modelled by a rectangular grid around which robots are able to move according to instructions provided from Earth. You are to write a program that determines each sequence of robot positions and reports the final position of the robot.

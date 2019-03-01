@@ -89,7 +89,7 @@ class MoveForward : Command {
 
 class TurnLeft : Command {
     override fun execute(robot: Robot, world: World) {
-        when (robot.position.direction) {
+        when (robot.position.direction) { // FIXME fix this train (with kgetter?)
             Direction.NORTH -> robot.position.direction = Direction.WEST
             Direction.EAST -> robot.position.direction = Direction.NORTH
             Direction.SOUTH -> robot.position.direction = Direction.EAST

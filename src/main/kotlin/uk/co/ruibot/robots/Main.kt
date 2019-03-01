@@ -8,7 +8,6 @@ import uk.co.ruibot.robots.robot.Robot
 import uk.co.ruibot.robots.robot.State
 
 fun main() {
-
     print("world size: ")
     val sizeLine = readInput()
     val worldSize = parseWorldSize(sizeLine)

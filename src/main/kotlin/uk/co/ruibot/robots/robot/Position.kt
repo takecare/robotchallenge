@@ -10,6 +10,11 @@ data class Position(
         get() = coordinates.x
     val y: Int
         get() = coordinates.y
+
+    fun toNorth() = Position(coordinates, Direction.NORTH)
+    fun toEast() = Position(coordinates, Direction.EAST)
+    fun toSouth() = Position(coordinates, Direction.SOUTH)
+    fun toWest() = Position(coordinates, Direction.WEST)
 }
 
 data class Coordinates(

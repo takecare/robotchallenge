@@ -66,14 +66,10 @@ class TurnLeft : Command { // FIXME smell: hashCode() & equals() implemented for
         }
 
         when (robot.position.direction) { // FIXME fix this train (with kgetter?)
-            Direction.NORTH -> robot.position.direction =
-                Direction.WEST
-            Direction.EAST -> robot.position.direction =
-                Direction.NORTH
-            Direction.SOUTH -> robot.position.direction =
-                Direction.EAST
-            Direction.WEST -> robot.position.direction =
-                Direction.SOUTH
+            Direction.NORTH -> robot.position.direction = Direction.WEST
+            Direction.EAST -> robot.position.direction = Direction.NORTH
+            Direction.SOUTH -> robot.position.direction = Direction.EAST
+            Direction.WEST -> robot.position.direction = Direction.SOUTH
         }
     }
 
@@ -95,14 +91,10 @@ class TurnRight : Command { // FIXME smell: hashCode() & equals() implemented fo
         }
 
         when (robot.position.direction) {
-            Direction.NORTH -> robot.position.direction =
-                Direction.EAST
-            Direction.EAST -> robot.position.direction =
-                Direction.SOUTH
-            Direction.SOUTH -> robot.position.direction =
-                Direction.WEST
-            Direction.WEST -> robot.position.direction =
-                Direction.NORTH
+            Direction.NORTH -> robot.position.direction = Direction.EAST
+            Direction.EAST -> robot.position.direction = Direction.SOUTH
+            Direction.SOUTH -> robot.position.direction = Direction.WEST
+            Direction.WEST -> robot.position.direction = Direction.NORTH
         }
     }
 

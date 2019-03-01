@@ -3,10 +3,10 @@ package uk.co.ruibot.robots.parsing
 import com.google.common.truth.Truth.assertThat
 import org.junit.Ignore
 import org.junit.Test
-import uk.co.ruibot.robots.Direction
-import uk.co.ruibot.robots.MoveForward
-import uk.co.ruibot.robots.TurnLeft
-import uk.co.ruibot.robots.TurnRight
+import uk.co.ruibot.robots.robot.Direction
+import uk.co.ruibot.robots.robot.MoveForward
+import uk.co.ruibot.robots.robot.TurnLeft
+import uk.co.ruibot.robots.robot.TurnRight
 
 class ParserTest {
 
@@ -103,7 +103,11 @@ class ParserTest {
     @Test
     fun `correctly parses path - RFL`() {
         val result = parsePath("RLF")
-        assertThat(result).containsExactlyElementsIn(listOf(TurnRight(), TurnLeft(), MoveForward())).inOrder()
+        assertThat(result).containsExactlyElementsIn(listOf(
+            TurnRight(),
+            TurnLeft(),
+            MoveForward()
+        )).inOrder()
     }
 
     @Test
@@ -111,7 +115,14 @@ class ParserTest {
         val result = parsePath("RLFRLF")
         assertThat(result)
             .containsExactlyElementsIn(
-                listOf(TurnRight(), TurnLeft(), MoveForward(), TurnRight(), TurnLeft(), MoveForward())
+                listOf(
+                    TurnRight(),
+                    TurnLeft(),
+                    MoveForward(),
+                    TurnRight(),
+                    TurnLeft(),
+                    MoveForward()
+                )
             )
             .inOrder()
     }

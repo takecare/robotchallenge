@@ -1,5 +1,7 @@
 package uk.co.ruibot.robots
 
+import uk.co.ruibot.robots.robot.*
+
 
 fun main() {
     // TODO 1. read world size
@@ -13,7 +15,13 @@ fun main() {
     // TODO 3. evaluate all robots
 
 
-    val robot1 = Robot(Position(1, 1, Direction.EAST), State.ALIVE)
+    val robot1 = Robot(
+        Position(
+            1,
+            1,
+            Direction.EAST
+        ), State.ALIVE
+    )
     val commands1 = mutableListOf(
         TurnRight(),
         MoveForward(),
@@ -25,7 +33,13 @@ fun main() {
         MoveForward()
     )
 
-    val robot2 = Robot(Position(3, 2, Direction.NORTH), State.ALIVE)
+    val robot2 = Robot(
+        Position(
+            3,
+            2,
+            Direction.NORTH
+        ), State.ALIVE
+    )
     val commands2 = mutableListOf(
         MoveForward(),
         TurnRight(),
@@ -42,7 +56,13 @@ fun main() {
         TurnLeft()
     )
 
-    val robot3 = Robot(Position(0, 3, Direction.WEST), State.ALIVE)
+    val robot3 = Robot(
+        Position(
+            0,
+            3,
+            Direction.WEST
+        ), State.ALIVE
+    )
     val commands3 = mutableListOf(
         TurnRight(),
         MoveForward(),
@@ -56,9 +76,9 @@ fun main() {
 
 
     val world = World(5, 3)
-//    world.run(robot1, commands1)
+    world.run(robot1, commands1)
     world.run(robot2, commands2)
-//    world.run(robot3, commands3)
+    world.run(robot3, commands3)
 }
 
 // TODO define domain & changes to it
@@ -74,133 +94,5 @@ class World(
     fun run(robot: Robot, commands: List<Command>) {
         commands.forEach { robot.run(it, this) }
         println(robot)
-    }
-}
-
-enum class Direction {
-    NORTH,
-    EAST,
-    SOUTH,
-    WEST
-}
-
-interface Command {
-    fun execute(
-        robot: Robot,
-        world: World
-    )
-    // TODO should return something... new position (x,y,dir)? but if new position then it's not "generic" -- this goes with immutability!
-}
-
-class MoveForward : Command {
-    override fun execute(robot: Robot, world: World) {
-        if (robot.state == State.LOST) {
-            return
-        }
-
-        when (robot.position.direction) {
-            Direction.NORTH -> {
-                if (robot.position.y + 1 > world.height) {
-                    robot.state = State.LOST
-                } else {
-                    robot.position.y += 1
-                }
-            }
-            Direction.EAST -> {
-                if (robot.position.x + 1 > world.width) {
-                    robot.state = State.LOST
-                } else {
-                    robot.position.x += 1
-                }
-            }
-            Direction.SOUTH -> {
-                if (robot.position.y - 1 < 0) {
-                    robot.state = State.LOST
-                } else {
-                    robot.position.y -= 1
-                }
-            }
-            Direction.WEST -> {
-                if (robot.position.x - 1 < 0) {
-                    robot.state = State.LOST
-                } else {
-                    robot.position.x -= 1
-                }
-            }
-        }
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return javaClass.hashCode()
-    }
-}
-
-class TurnLeft : Command {
-    override fun execute(robot: Robot, world: World) {
-        if (robot.state == State.LOST) {
-            return
-        }
-
-        when (robot.position.direction) { // FIXME fix this train (with kgetter?)
-            Direction.NORTH -> robot.position.direction = Direction.WEST
-            Direction.EAST -> robot.position.direction = Direction.NORTH
-            Direction.SOUTH -> robot.position.direction = Direction.EAST
-            Direction.WEST -> robot.position.direction = Direction.SOUTH
-        }
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return javaClass.hashCode()
-    }
-
-
-}
-
-class TurnRight : Command {
-    override fun execute(robot: Robot, world: World) {
-        if (robot.state == State.LOST) {
-            return
-        }
-
-        when (robot.position.direction) {
-            Direction.NORTH -> robot.position.direction = Direction.EAST
-            Direction.EAST -> robot.position.direction = Direction.SOUTH
-            Direction.SOUTH -> robot.position.direction = Direction.WEST
-            Direction.WEST -> robot.position.direction = Direction.NORTH
-        }
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return javaClass.hashCode()
-    }
-}
-
-class TakePhoto : Command {
-    override fun execute(robot: Robot, world: World) {
-        println("Took a photo at ${robot.position}!")
-    }
-}
-
-data class Robot(val position: Position, var state: State) {
-    fun run(command: Command, world: World) {
-        command.execute(this, world)
     }
 }

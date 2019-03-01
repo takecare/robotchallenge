@@ -1,4 +1,4 @@
-package uk.co.ruibot.robots
+package uk.co.ruibot.robots.robot
 
 data class Position( // FIXME i don't like this being mutable... maybe go fo immutability?
     var x: Int = 0,
@@ -6,7 +6,9 @@ data class Position( // FIXME i don't like this being mutable... maybe go fo imm
     var direction: Direction = Direction.NORTH
 )
 
-enum class State {
-    LOST,
-    ALIVE
+enum class Direction {
+    NORTH,
+    EAST,
+    SOUTH,
+    WEST
 }

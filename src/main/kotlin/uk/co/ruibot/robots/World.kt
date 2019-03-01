@@ -21,12 +21,9 @@ class World(val width: Int, val height: Int) {
     }
 
     private fun movedOrLost(position: Position, robot: Robot): Robot {
-        val movedRobot = Robot(position, State.ALIVE)
+        val movedRobot = Robot(position)
         return when {
-            scentFound(movedRobot, robot) -> Robot(
-                position,
-                State.ALIVE
-            )
+            scentFound(movedRobot, robot) -> Robot(position, State.ALIVE) // @RUI this should not be needed
             robotGotLost(movedRobot, robot) -> {
                 scents.add(movedRobot.position)
                 robot.asLost()

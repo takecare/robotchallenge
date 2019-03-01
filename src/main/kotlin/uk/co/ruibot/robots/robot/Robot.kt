@@ -1,6 +1,6 @@
 package uk.co.ruibot.robots.robot
 
-data class Robot(val position: Position, val state: State) {
+data class Robot(val position: Position, val state: State = State.ALIVE) {
     val x: Int
         get() = position.x
     val y: Int

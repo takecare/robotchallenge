@@ -1,5 +1,6 @@
 package uk.co.ruibot.robots
 
+
 fun main() {
     // TODO 1. read world size
 
@@ -90,7 +91,6 @@ interface Command {
     ) // TODO should return something... new position (x,y,dir)? but if new position then it's not "generic" -- this goes with immutability!
 }
 
-
 class MoveForward : Command {
     override fun execute(robot: Robot, world: World) {
         if (robot.state == State.LOST) {
@@ -128,6 +128,16 @@ class MoveForward : Command {
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return javaClass.hashCode()
+    }
 }
 
 class TurnLeft : Command {
@@ -143,6 +153,18 @@ class TurnLeft : Command {
             Direction.WEST -> robot.position.direction = Direction.SOUTH
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return javaClass.hashCode()
+    }
+
+
 }
 
 class TurnRight : Command {
@@ -158,6 +180,17 @@ class TurnRight : Command {
             Direction.WEST -> robot.position.direction = Direction.NORTH
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return javaClass.hashCode()
+    }
+
 
 }
 

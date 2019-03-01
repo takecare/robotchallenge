@@ -81,18 +81,20 @@ fun main() {
     world.run(robot3, commands3)
 }
 
-// TODO define domain & changes to it
-
 class World(
     val width: Int,
     val height: Int
 ) {
 
-    private val scents: List<Robot> = mutableListOf()
+    private var scents: List<Robot> = listOf()
 
-    // TODO move robots?
     fun run(robot: Robot, commands: List<Command>) {
-        commands.forEach { robot.run(it, this) }
+        commands.forEach {
+            val result = robot.run(it, this)
+            if (result == Result.FAIL) {
+                scents = scents + robot
+            }
+        }
         println(robot)
     }
 }

@@ -56,17 +56,19 @@ class MoveForward : Move() { // FIXME smell: hashCode() & equals() implemented f
 
 class TurnLeft : Move() { // FIXME smell: hashCode() & equals() implemented for testing purposes
     override fun execute(robot: Robot, world: World): Result<Position> {
+        val position = robot.position
         return if (robot.state == State.LOST) {
-            Payload(robot.position) // rule in purple -> "ignore commands if lost" @RUI
+            Payload(position)
         } else {
-            when (robot.position.direction) { // FIXME fix this train (with kgetter?)
-                Direction.NORTH -> Payload(robot.position.copy(direction = Direction.WEST))
-                Direction.EAST -> Payload(robot.position.copy(direction = Direction.NORTH))
-                Direction.SOUTH -> Payload(robot.position.copy(direction = Direction.EAST))
-                Direction.WEST -> Payload(robot.position.copy(direction = Direction.SOUTH))
-            }
+            Payload(position.goLeft())
         }
+    }
 
+    private fun Position.goLeft() = when (direction) {
+        Direction.NORTH -> copy(direction = Direction.WEST)
+        Direction.EAST -> copy(direction = Direction.NORTH)
+        Direction.SOUTH -> copy(direction = Direction.EAST)
+        Direction.WEST -> copy(direction = Direction.SOUTH)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -82,17 +84,19 @@ class TurnLeft : Move() { // FIXME smell: hashCode() & equals() implemented for 
 
 class TurnRight : Move() { // FIXME smell: hashCode() & equals() implemented for testing purposes
     override fun execute(robot: Robot, world: World): Result<Position> {
+        val position = robot.position
         return if (robot.state == State.LOST) {
-            Payload(robot.position) // rule in purple -> "ignore commands if lost" @RUI
+            Payload(position)
         } else {
-
-            when (robot.position.direction) {
-                Direction.NORTH -> Payload(robot.position.copy(direction = Direction.EAST))
-                Direction.EAST -> Payload(robot.position.copy(direction = Direction.SOUTH))
-                Direction.SOUTH -> Payload(robot.position.copy(direction = Direction.WEST))
-                Direction.WEST -> Payload(robot.position.copy(direction = Direction.NORTH))
-            }
+            Payload(position.goRight())
         }
+    }
+
+    private fun Position.goRight() = when (direction) {
+        Direction.NORTH -> copy(direction = Direction.EAST)
+        Direction.EAST -> copy(direction = Direction.SOUTH)
+        Direction.SOUTH -> copy(direction = Direction.WEST)
+        Direction.WEST -> copy(direction = Direction.NORTH)
     }
 
     override fun equals(other: Any?): Boolean {

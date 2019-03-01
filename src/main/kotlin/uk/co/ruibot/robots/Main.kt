@@ -12,9 +12,18 @@ fun main() {
     // TODO 3. evaluate all robots
 
 
-    val robot = Robot(Position(), State.ALIVE)
-    val commands = mutableListOf(MoveForward(), MoveForward(), MoveForward())
-    val world = World(5, 5)
+    val robot = Robot(Position(1, 1, Direction.EAST), State.ALIVE)
+    val commands = mutableListOf(
+        TurnRight(),
+        MoveForward(),
+        TurnRight(),
+        MoveForward(),
+        TurnRight(),
+        MoveForward(),
+        TurnRight(),
+        MoveForward()
+    )
+    val world = World(5, 3)
 
     world.run(robot, commands)
 }
@@ -46,7 +55,7 @@ interface Command {
     fun execute(
         robot: Robot,
         world: World
-    ) // TODO should return something... new position (x,y,dir)? but if new position then it's not "generic"
+    ) // TODO should return something... new position (x,y,dir)? but if new position then it's not "generic" -- this goes with immutability!
 }
 
 

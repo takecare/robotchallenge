@@ -13,7 +13,7 @@ class MoveForwardTest {
         )
         val world = World(3, 3)
 
-        val result = robot.execute(MoveForward(), world)
+        val result = MoveForward().execute(robot, world)
         val position = result.contentOrNull as Position
 
         assertThat(position).isEqualTo(
@@ -28,7 +28,7 @@ class MoveForwardTest {
         )
         val world = World(3, 3)
 
-        val result = robot.execute(MoveForward(), world)
+        val result = MoveForward().execute(robot, world)
         val position = result.contentOrNull as Position
 
         assertThat(position).isEqualTo(
@@ -43,7 +43,7 @@ class MoveForwardTest {
         )
         val world = World(3, 3)
 
-        val result = robot.execute(MoveForward(), world)
+        val result = MoveForward().execute(robot, world)
         val position = result.contentOrNull as Position
 
         assertThat(position).isEqualTo(
@@ -58,7 +58,7 @@ class MoveForwardTest {
         )
         val world = World(3, 3)
 
-        val result = robot.execute(MoveForward(), world)
+        val result = MoveForward().execute(robot, world)
         val position = result.contentOrNull as Position
 
         assertThat(position).isEqualTo(
@@ -73,7 +73,7 @@ class MoveForwardTest {
         )
         val world = World(1, 1)
 
-        val result = robot.execute(MoveForward(), world)
+        val result = MoveForward().execute(robot, world)
 
         assertThat(result).isEqualTo(
             Error(content = Position(1, 1, Direction.NORTH))
@@ -87,7 +87,7 @@ class MoveForwardTest {
         )
         val world = World(1, 1)
 
-        val result = robot.execute(MoveForward(), world)
+        val result = MoveForward().execute(robot, world)
         val position = result.contentOrNull as Position
 
         assertThat(position).isEqualTo(robot.position)

@@ -12,46 +12,34 @@ sealed class Move : Command<Position>
 // TODO convert to object @RUI
 class MoveForward : Move() { // FIXME smell: hashCode() & equals() implemented for testing purposes
     override fun execute(robot: Robot, world: World): Result<Position> {
-
+        val position = robot.position
         return if (robot.state == State.LOST) {
-            Payload(robot.position) // rule in purple -> "ignore commands if lost" @RUI
+            Payload(position)
         } else {
+            position.goForwardOrError(world)
+        }
+    }
 
-            when (robot.position.direction) {
-                Direction.NORTH -> {
-                    if (robot.position.y + 1 > world.height) {
-                        Error(content = robot.position)
-                    } else {
-                        val position = Position(robot.position.x, robot.position.y + 1, robot.position.direction)
-                        Payload(position)
-                    }
-                }
-                Direction.EAST -> {
-                    if (robot.position.x + 1 > world.width) {
-                        Error(content = robot.position)
-                    } else {
-                        val position = Position(robot.position.x + 1, robot.position.y, robot.position.direction)
-                        Payload(position)
-                    }
-                }
-                Direction.SOUTH -> {
-                    if (robot.position.y - 1 < 0) {
-                        Error(content = robot.position)
-                    } else {
-                        val position = Position(robot.position.x, robot.position.y - 1, robot.position.direction)
-                        Payload(position)
-                    }
-                }
-                Direction.WEST -> {
-                    if (robot.position.x - 1 < 0) {
-                        Error(content = robot.position)
-                    } else {
-                        val position = Position(robot.position.x - 1, robot.position.y, robot.position.direction)
-                        Payload(position)
-                    }
-                }
-            }
+    private fun Position.goForwardOrError(world: World): Result<Position> = when (direction) {
+        Direction.NORTH -> moveForwardIf { y + 1 > world.height }
+        Direction.EAST -> moveForwardIf { x + 1 > world.width }
+        Direction.SOUTH -> moveForwardIf { y - 1 < 0 }
+        Direction.WEST -> moveForwardIf { x - 1 < 0 }
+    }
 
+    private fun Position.moveForwardIf(cannotMove: () -> Boolean): Result<Position> {
+        return when {
+            cannotMove() -> Error(content = this)
+            else -> Payload(moveForward())
+        }
+    }
+
+    private fun Position.moveForward(): Position {
+        return when (direction) {
+            Direction.NORTH -> Position(x, y + 1, Direction.NORTH)
+            Direction.EAST -> Position(x + 1, y, Direction.EAST)
+            Direction.SOUTH -> Position(x, y - 1, Direction.SOUTH)
+            Direction.WEST -> Position(x - 1, y, Direction.WEST)
         }
     }
 

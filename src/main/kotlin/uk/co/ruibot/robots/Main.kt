@@ -122,7 +122,7 @@ data class Robot(val position: Position, var state: State) {
     }
 }
 
-data class Position(
+data class Position( // FIXME i don't like this being mutable... maybe go fo immutability?
     var x: Int = 0,
     var y: Int = 0,
     var direction: Direction = Direction.NORTH

@@ -4,15 +4,19 @@ import uk.co.ruibot.robots.robot.*
 
 fun parseWorldSize(line: String): Pair<Int, Int> { // TODO should be WorldSize @RUI
     val values = line.split(" ")
-    // TODO throw if values.size != 2
-    // TODO throw if values[0] || values[1] are not valid ints
+    if (values.size != 2) {
+        throw InvalidSize("Invalid size value.")
+    }
     return Pair(values[0].toInt(), values[1].toInt())
 }
 
+private class InvalidSize(message: String) : IllegalArgumentException(message)
+
 fun parsePosition(line: String): Position {
     val values = line.split(" ")
-    // TODO throw if values.size != 2
-    // TODO throw if values[0] || values[1] are not valid ints
+    if (values.size != 3) {
+        throw InvalidSize("Invalid position value.")
+    }
     return Position(values[0].toInt(), values[1].toInt(), values[2].toDirection())
 }
 
@@ -23,19 +27,17 @@ private fun String.toCommand() = when (this) {
     "R" -> TurnRight
     "L" -> TurnLeft
     "P" -> TakePhoto
-    else -> throw IllegalArgumentException("Unexpected command '$this'")
+    else -> throw InvalidCommand("Unexpected command '$this'")
 }
+
+private class InvalidCommand(message: String) : IllegalArgumentException(message)
 
 private fun String.toDirection() = when (this) {
     "N" -> Direction.NORTH
     "E" -> Direction.EAST
     "S" -> Direction.SOUTH
     "W" -> Direction.WEST
-    else -> throw IllegalArgumentException("Unexpected direction '$this'")
+    else -> throw InvalidDirection("Unexpected direction '$this'")
 }
 
-private enum class State {
-    READING_WORLD_SIZE,
-    READING_ROBOT_POSITION,
-    READING_ROBOT_PATH
-}
+class InvalidDirection(message: String) : IllegalArgumentException(message)

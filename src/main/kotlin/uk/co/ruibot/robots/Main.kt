@@ -1,85 +1,39 @@
 package uk.co.ruibot.robots
 
-import uk.co.ruibot.robots.robot.*
-
+import uk.co.ruibot.robots.parsing.parsePath
+import uk.co.ruibot.robots.parsing.parsePosition
+import uk.co.ruibot.robots.parsing.parseWorldSize
+import uk.co.ruibot.robots.robot.Command
+import uk.co.ruibot.robots.robot.Robot
+import uk.co.ruibot.robots.robot.State
 
 fun main() {
-    // TODO 1. read world size
 
-    /*do {
-        val line = readLine()
-        println("> $line")
-    } while (line != null)*/
+    print("world size: ")
+    val sizeLine = readInput()
+    val worldSize = parseWorldSize(sizeLine)
+    val robots = mutableMapOf<Robot, List<Command<*>>>()
 
-    // TODO 2. read (on loop) robots [define breaking condition]
-    // TODO 3. evaluate all robots
+    while (true) {
+        print("robot position: ")
+        val lineInput = readInput()
+        if (lineInput.isEmpty()) {
+            break
+        }
+        val position = parsePosition(lineInput)
 
+        print("commands: ")
+        val commandsInput = readInput()
+        if (commandsInput.isEmpty()) {
+            break
+        }
+        val commands = parsePath(commandsInput)
 
-    val robot1 = Robot(
-        Position(
-            1,
-            1,
-            Direction.EAST
-        ), State.ALIVE
-    )
-    val commands1 = mutableListOf(
-        TurnRight,
-        MoveForward,
-        TurnRight,
-        MoveForward,
-        TurnRight,
-        MoveForward,
-        TurnRight,
-        MoveForward
-    )
+        robots += Robot(position, State.ALIVE) to commands
+    }
 
-    val robot2 = Robot(
-        Position(
-            3,
-            2,
-            Direction.NORTH
-        ), State.ALIVE
-    )
-    val commands2 = mutableListOf(
-        MoveForward,
-        TurnRight,
-        TurnRight,
-        MoveForward,
-        TurnLeft,
-        TurnLeft,
-        MoveForward,
-        MoveForward,
-        TurnRight,
-        TurnRight,
-        MoveForward,
-        TurnLeft,
-        TurnLeft
-    )
-
-    val robot3 = Robot(
-        Position(
-            0,
-            3,
-            Direction.WEST
-        ), State.ALIVE
-    )
-    val commands3 = mutableListOf(
-        TurnLeft,
-        TurnLeft,
-        MoveForward,
-        MoveForward,
-        MoveForward,
-        TurnLeft,
-        MoveForward,
-        TurnLeft,
-        MoveForward,
-        TurnLeft
-    )
-
-
-    val world = World(5, 3)
-    println(world.run(robot1, commands1))
-    println(world.run(robot2, commands2))
-    println(world.run(robot3, commands3))
+    val world = World(worldSize.first, worldSize.second)
+    robots.forEach { robot, commands -> println(world.run(robot, commands)) }
 }
 
+private fun readInput() = readLine() ?: throw IllegalStateException()

@@ -12,8 +12,8 @@ fun main() {
     // TODO 3. evaluate all robots
 
 
-    val robot = Robot(Position(1, 1, Direction.EAST), State.ALIVE)
-    val commands = mutableListOf(
+    val robot1 = Robot(Position(1, 1, Direction.EAST), State.ALIVE)
+    val commands1 = mutableListOf(
         TurnRight(),
         MoveForward(),
         TurnRight(),
@@ -23,9 +23,41 @@ fun main() {
         TurnRight(),
         MoveForward()
     )
-    val world = World(5, 3)
 
-    world.run(robot, commands)
+    val robot2 = Robot(Position(3, 2, Direction.NORTH), State.ALIVE)
+    val commands2 = mutableListOf(
+        MoveForward(),
+        TurnRight(),
+        TurnRight(),
+        MoveForward(),
+        TurnLeft(),
+        TurnLeft(),
+        MoveForward(),
+        MoveForward(),
+        TurnRight(),
+        TurnRight(),
+        MoveForward(),
+        TurnLeft(),
+        TurnLeft()
+    )
+
+    val robot3 = Robot(Position(0, 3, Direction.WEST), State.ALIVE)
+    val commands3 = mutableListOf(
+        TurnRight(),
+        MoveForward(),
+        TurnRight(),
+        MoveForward(),
+        TurnRight(),
+        MoveForward(),
+        TurnRight(),
+        MoveForward()
+    )
+
+
+    val world = World(5, 3)
+//    world.run(robot1, commands1)
+    world.run(robot2, commands2)
+//    world.run(robot3, commands3)
 }
 
 // TODO define domain & changes to it
@@ -61,7 +93,9 @@ interface Command {
 
 class MoveForward : Command {
     override fun execute(robot: Robot, world: World) {
-        // TODO manage movement accordingly (i.e. take direction and bounds in account)
+        if (robot.state == State.LOST) {
+            return
+        }
 
         when (robot.position.direction) {
             Direction.NORTH -> {
@@ -98,6 +132,10 @@ class MoveForward : Command {
 
 class TurnLeft : Command {
     override fun execute(robot: Robot, world: World) {
+        if (robot.state == State.LOST) {
+            return
+        }
+
         when (robot.position.direction) { // FIXME fix this train (with kgetter?)
             Direction.NORTH -> robot.position.direction = Direction.WEST
             Direction.EAST -> robot.position.direction = Direction.NORTH
@@ -109,6 +147,10 @@ class TurnLeft : Command {
 
 class TurnRight : Command {
     override fun execute(robot: Robot, world: World) {
+        if (robot.state == State.LOST) {
+            return
+        }
+
         when (robot.position.direction) {
             Direction.NORTH -> robot.position.direction = Direction.EAST
             Direction.EAST -> robot.position.direction = Direction.SOUTH

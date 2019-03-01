@@ -64,21 +64,23 @@ fun main() {
         ), State.ALIVE
     )
     val commands3 = mutableListOf(
-        TurnRight(),
+        TurnLeft(),
+        TurnLeft(),
         MoveForward(),
-        TurnRight(),
         MoveForward(),
-        TurnRight(),
         MoveForward(),
-        TurnRight(),
-        MoveForward()
+        TurnLeft(),
+        MoveForward(),
+        TurnLeft(),
+        MoveForward(),
+        TurnLeft()
     )
 
 
     val world = World(5, 3)
     world.run(robot1, commands1)
     world.run(robot2, commands2)
-    world.run(robot3, commands3)
+//    world.run(robot3, commands3)
 }
 
 class World(
@@ -86,15 +88,39 @@ class World(
     val height: Int
 ) {
 
-    private var scents: List<Robot> = listOf()
+//    private var scents: List<Coordinates> = listOf()
+private val scents: MutableSet<Position> = mutableSetOf()
 
-    fun run(robot: Robot, commands: List<Command>) {
-        commands.forEach {
-            val result = robot.run(it, this)
-            if (result == Result.FAIL) {
-                scents = scents + robot
-            }
-        }
-        println(robot)
+    fun run(startingRobot: Robot, commands: List<Command<*>>) {
+        val final = commands
+            .fold(startingRobot) { robot, command -> execute(command, robot) }
+        println(final)
     }
+
+    private fun execute(command: Command<*>, robot: Robot): Robot {
+        val result = command.execute(robot, this)
+        return when (result.contentOrNull) {
+            is Position -> moveOrDisappear(result.contentOrNull as Position, robot)
+            else -> robot
+        }
+    }
+
+    private fun moveOrDisappear(position: Position, robot: Robot): Robot {
+        val newRobot = Robot(position, State.ALIVE)
+        return when {
+            scentFound(newRobot, robot) -> Robot(position, State.ALIVE)
+            robotGotLost(newRobot, robot) -> {
+                scents.add(newRobot.position)
+                robot.asLost()
+            }
+            else -> newRobot
+        }
+    }
+
+    private fun robotGotLost(newRobot: Robot, robot: Robot) = newRobot.position == robot.position
+
+    private fun scentFound(newRobot: Robot, currentRobot: Robot) =
+        currentRobot.state == State.ALIVE && newRobot.position in scents
+
+    private fun Robot.asLost() = copy(state = State.LOST)
 }

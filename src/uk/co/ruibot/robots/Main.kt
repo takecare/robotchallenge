@@ -13,7 +13,7 @@ fun main() {
 
 
     val robot = Robot(Position())
-    val commands = mutableListOf(MoveForward())
+    val commands = mutableListOf(MoveForward(), MoveForward(), MoveForward())
     val world = World(5, 5)
 
     world.run(robot, commands)
@@ -22,15 +22,16 @@ fun main() {
 // TODO define domain & changes to it
 
 class World(
-    private val width: Int,
-    private val height: Int
+    val width: Int,
+    val height: Int
 ) {
 
     private val scents: List<Robot> = mutableListOf()
 
     // TODO move robots?
     fun run(robot: Robot, commands: List<Command>) {
-        commands.forEach { robot.run(it) }
+        commands.forEach { robot.run(it, this) }
+        println(robot)
     }
 }
 
@@ -42,30 +43,77 @@ enum class Direction {
 }
 
 interface Command {
-    fun execute(robot: Robot) // TODO should return something... new position (x,y,dir)? but if new position then it's not "generic"
+    fun execute(robot: Robot, world: World) // TODO should return something... new position (x,y,dir)? but if new position then it's not "generic"
 }
 
+
+
 class MoveForward : Command {
-    override fun execute(robot: Robot) {
-        robot.position.x += 1 // TODO manage movement accordingly (i.e. take direction and bounds in account)
+    override fun execute(robot: Robot, world: World) {
+        // TODO manage movement accordingly (i.e. take direction and bounds in account)
+
+        when (robot.position.direction) {
+            Direction.NORTH -> {
+                if (robot.position.y + 1 > world.height) {
+                    // TODO kill robot
+                } else {
+                    robot.position.y += 1
+                }
+            }
+            Direction.EAST -> {
+                if (robot.position.x + 1 > world.width) {
+                    // TODO kill robot
+                } else {
+                    robot.position.x += 1
+                }
+            }
+            Direction.SOUTH -> {
+                if (robot.position.y - 1 < 0) {
+                    // TODO kill robot
+                } else {
+                    robot.position.y -= 1
+                }
+            }
+            Direction.WEST -> {
+                if (robot.position.x - 1 < 0) {
+                    // TODO kill robot
+                } else {
+                    robot.position.x -= 1
+                }
+            }
+        }
+
     }
+}
+
+class TurnLeft : Command {
+    override fun execute(robot: Robot, world: World) {
+        // TODO: execute not implemented
+    }
+}
+
+class TurnRight : Command {
+    override fun execute(robot: Robot, world: World) {
+        // TODO: execute not implemented
+    }
+
 }
 
 class TakePhoto : Command {
-    override fun execute(robot: Robot) {
-        println("Took a photo at ${robot.position}")
+    override fun execute(robot: Robot, world: World) {
+        println("Took a photo at ${robot.position}!")
     }
 }
 
-class Robot(val position: Position) {
+data class Robot(val position: Position) {
 
-    fun run(command: Command) {
-        command.execute(this)
+    fun run(command: Command, world: World) {
+        command.execute(this, world)
     }
 }
 
 data class Position(
     var x: Int = 0,
-    val y: Int = 0,
+    var y: Int = 0,
     val direction: Direction = Direction.NORTH
 )

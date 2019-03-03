@@ -2,18 +2,13 @@ package uk.co.ruibot.robots.robot
 
 import com.google.common.truth.Truth
 import org.junit.Test
-import uk.co.ruibot.robots.World
 
 class TurnLeftTest {
 
     @Test
     fun `robot turns left when facing north`() {
-        val robot = Robot(
-            Position(0, 0, Direction.NORTH), State.ALIVE
-        ) // TODO extract these to Fixtures file
-        val world = World(3, 3)
 
-        val result = TurnLeft.execute(robot, world)
+        val result = TurnLeft.execute(aRobot(), aWorld())
         val position = result.contentOrNull as Position
 
         Truth.assertThat(position.direction).isEqualTo(Direction.WEST)
@@ -21,12 +16,8 @@ class TurnLeftTest {
 
     @Test
     fun `robot turns left when facing east`() {
-        val robot = Robot(
-            Position(0, 0, Direction.EAST), State.ALIVE
-        ) // TODO extract these to Fixtures file
-        val world = World(3, 3)
 
-        val result = TurnLeft.execute(robot, world)
+        val result = TurnLeft.execute(aRobot().facingEast(), aWorld())
         val position = result.contentOrNull as Position
 
         Truth.assertThat(position.direction).isEqualTo(Direction.NORTH)
@@ -34,12 +25,8 @@ class TurnLeftTest {
 
     @Test
     fun `robot turns left when facing south`() {
-        val robot = Robot(
-            Position(0, 0, Direction.SOUTH), State.ALIVE
-        ) // TODO extract these to Fixtures file
-        val world = World(3, 3)
 
-        val result = TurnLeft.execute(robot, world)
+        val result = TurnLeft.execute(aRobot().facingSouth(), aWorld())
         val position = result.contentOrNull as Position
 
         Truth.assertThat(position.direction).isEqualTo(Direction.EAST)
@@ -47,12 +34,8 @@ class TurnLeftTest {
 
     @Test
     fun `robot turns left when facing west`() {
-        val robot = Robot(
-            Position(0, 0, Direction.WEST), State.ALIVE
-        ) // TODO extract these to Fixtures file
-        val world = World(3, 3)
 
-        val result = TurnLeft.execute(robot, world)
+        val result = TurnLeft.execute(aRobot().facingWest(), aWorld())
         val position = result.contentOrNull as Position
 
         Truth.assertThat(position.direction).isEqualTo(Direction.SOUTH)

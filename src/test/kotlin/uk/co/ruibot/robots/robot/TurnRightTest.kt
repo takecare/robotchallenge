@@ -2,19 +2,14 @@ package uk.co.ruibot.robots.robot
 
 import com.google.common.truth.Truth
 import org.junit.Test
-import uk.co.ruibot.robots.World
 
 // TODO parameterised test? @RUI
 class TurnRightTest {
 
     @Test
     fun `robot turns right when facing north`() {
-        val robot = Robot(
-            Position(0, 0, Direction.NORTH), State.ALIVE
-        ) // TODO extract these to Fixtures file
-        val world = World(3, 3)
 
-        val result = TurnRight.execute(robot, world)
+        val result = TurnRight.execute(aRobot(), aWorld())
         val position = result.contentOrNull as Position
 
         Truth.assertThat(position.direction).isEqualTo(Direction.EAST)
@@ -22,12 +17,8 @@ class TurnRightTest {
 
     @Test
     fun `robot turns right when facing east`() {
-        val robot = Robot(
-            Position(0, 0, Direction.EAST), State.ALIVE
-        ) // TODO extract these to Fixtures file
-        val world = World(3, 3)
 
-        val result = TurnRight.execute(robot, world)
+        val result = TurnRight.execute(aRobot().facingEast(), aWorld())
         val position = result.contentOrNull as Position
 
         Truth.assertThat(position.direction).isEqualTo(Direction.SOUTH)
@@ -35,12 +26,8 @@ class TurnRightTest {
 
     @Test
     fun `robot turns right when facing south`() {
-        val robot = Robot(
-            Position(0, 0, Direction.SOUTH), State.ALIVE
-        ) // TODO extract these to Fixtures file
-        val world = World(3, 3)
 
-        val result = TurnRight.execute(robot, world)
+        val result = TurnRight.execute(aRobot().facingSouth(), aWorld())
         val position = result.contentOrNull as Position
 
         Truth.assertThat(position.direction).isEqualTo(Direction.WEST)
@@ -48,12 +35,8 @@ class TurnRightTest {
 
     @Test
     fun `robot turns right when facing west`() {
-        val robot = Robot(
-            Position(0, 0, Direction.WEST), State.ALIVE
-        ) // TODO extract these to Fixtures file
-        val world = World(3, 3)
 
-        val result = TurnRight.execute(robot, world)
+        val result = TurnRight.execute(aRobot().facingWest(), aWorld())
         val position = result.contentOrNull as Position
 
         Truth.assertThat(position.direction).isEqualTo(Direction.NORTH)

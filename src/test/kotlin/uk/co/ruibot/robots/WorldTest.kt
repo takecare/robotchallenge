@@ -8,8 +8,6 @@ class WorldTest {
 
     @Test
     fun `robot goes back to starting position - RFRFRFRF`() {
-        val robot = Robot(Position(1, 1, Direction.EAST), State.ALIVE) // TODO extract these to Fixtures file
-        val world = World(5, 3)
         val path = listOf(
             TurnRight,
             MoveForward,
@@ -21,7 +19,7 @@ class WorldTest {
             MoveForward
         )
 
-        val result = world.run(robot, path)
+        val result = aWorld(5, 3).run(aRobot().at(1, 1).facingEast(), path)
 
         assertThat(result).isEqualTo(
             Robot(Position(1, 1, Direction.EAST), State.ALIVE)
@@ -30,8 +28,6 @@ class WorldTest {
 
     @Test
     fun `robot gets lost - FRRFLLFFRRFLL`() {
-        val robot = Robot(Position(3, 2, Direction.NORTH), State.ALIVE) // TODO extract these to Fixtures file
-        val world = World(5, 3)
         val path = listOf(
             MoveForward,
             TurnRight,
@@ -48,7 +44,7 @@ class WorldTest {
             TurnLeft
         )
 
-        val result = world.run(robot, path)
+        val result = aWorld(5, 3).run(aRobot().at(3, 2), path)
 
         assertThat(result).isEqualTo(
             Robot(
@@ -59,9 +55,7 @@ class WorldTest {
 
     @Test
     fun `robot detects scent - FRRFLLFFRRFLL & LLFFFLFLFL`() {
-        val robot1 = Robot(Position(3, 2, Direction.WEST), State.ALIVE) // TODO extract these to Fixtures file
-        val robot2 = Robot(Position(0, 3, Direction.WEST), State.ALIVE) // TODO extract these to Fixtures file
-        val world = World(5, 3)
+        val world = aWorld(5, 3)
 
         val path1 = listOf(
             MoveForward,
@@ -91,8 +85,8 @@ class WorldTest {
             TurnLeft
         )
 
-        world.run(robot1, path1)
-        val result = world.run(robot2, path2)
+        world.run(aRobot().at(3, 2).facingWest(), path1)
+        val result = world.run(aRobot().at(0, 3).facingWest(), path2)
 
         assertThat(result).isEqualTo(
             Robot(

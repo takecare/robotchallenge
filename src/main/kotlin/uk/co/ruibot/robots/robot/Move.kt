@@ -4,22 +4,12 @@ import uk.co.ruibot.robots.World
 
 sealed class Move : Command<Position>
 
-object MoveForward : Move() { // FIXME smell: hashCode() & equals() implemented for testing purposes
+object MoveForward : Move() {
 
     override fun execute(robot: Robot, world: World): Result<Position> = if (robot.isLost) {
         Payload(robot.position)
     } else {
         robot.position.goForwardOrError(world)
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return javaClass.hashCode()
     }
 }
 
@@ -42,21 +32,11 @@ private fun Position.moveForward() = when (direction) {
     Direction.WEST -> Position(x - 1, y, Direction.WEST)
 }
 
-object TurnLeft : Move() { // FIXME smell: hashCode() & equals() implemented for testing purposes
+object TurnLeft : Move() {
     override fun execute(robot: Robot, world: World): Result<Position> = if (robot.isLost) {
         Payload(robot.position)
     } else {
         Payload(robot.goLeft())
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return javaClass.hashCode()
     }
 }
 
@@ -69,21 +49,11 @@ private fun Position.goLeft() = when (direction) {
     Direction.WEST -> toSouth()
 }
 
-object TurnRight : Move() { // FIXME smell: hashCode() & equals() implemented for testing purposes
+object TurnRight : Move() {
     override fun execute(robot: Robot, world: World): Result<Position> = if (robot.isLost) {
         Payload(robot.position)
     } else {
         Payload(robot.goRight())
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return javaClass.hashCode()
     }
 }
 

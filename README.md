@@ -1,7 +1,7 @@
 
 ### Running
 
-In the root dir of the project run ` ./gradlew run -q --console=plain`. Input data as described/showcased below. Alternatively you can import this project in IntelliJ (or Android Studio).
+In the root dir of the project run `./gradlew run -q --console=plain`. Input data as described/showcased below. Enter an empty `commands` line to parse input entered thus far. Alternatively you can import this project in IntelliJ (or Android Studio).
 
 
 ### The Problem
